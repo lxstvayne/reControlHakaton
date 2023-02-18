@@ -18,3 +18,6 @@ flush:
 
 startapp:
 	poetry run python ./manage.py startapp $(ARGS)
+
+collectstatic:
+	poetry run python ./manage.py collectstatic

@@ -25,7 +25,11 @@ SECRET_KEY = 'django-insecure-zgcl#w)kc_ug5gcovh@-k+e&i0&a(i$#g-6d+$$fyuti_x$abp
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+# Так делать ненадо!
 ALLOWED_HOSTS = ['*']
+CSRF_TRUSTED_ORIGINS = ["http://0.0.0.0",
+                        "http://localhost",
+                        'http://178.20.40.92/']
 CORS_ALLOW_ALL_ORIGINS = True
 
 # Application definition
@@ -128,6 +132,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = './static'
+
+MEDIA_ROOT = './media/'
+
+MEDIA_URL = '/media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -157,5 +166,5 @@ SPECTACULAR_SETTINGS = {
     'TITLE': 'reControl API',
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
-    'SCHEMA_PATH_PREFIX': r'/api/v[0-9]',
+    'SCHEMA_PATH_PREFIX': r'/api/',
 }

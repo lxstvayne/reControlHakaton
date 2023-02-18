@@ -28,14 +28,21 @@ class UserManager(BaseUserManager):
         return user
 
 
+class Profession(models.Model):
+    name = models.CharField(max_length=255, primary_key=True)
+
+
 class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(null=False, unique=True)
     phone = PhoneField(null=False, unique=True)
 
+    # Обязательное поле если нужно использовать админку джанго
+    is_staff = models.BooleanField(default=False)
+
     firstname = models.CharField(max_length=255, null=True, blank=False)
     middlename = models.CharField(max_length=255, null=True, blank=False)
     lastname = models.CharField(max_length=255, null=True, blank=False)
-    photo = models.ImageField(upload_to='../static/photos/', null=True, max_length=255)
+    photo = models.ImageField(upload_to='photos/', null=True, max_length=255)
 
     # На проде будет больше ролей
     class RoleChoices(models.TextChoices):
@@ -50,15 +57,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         null=False
     )
 
-    # На проде будет больше профессий
-    class ProfessionChoices(models.TextChoices):
-        ELECTRICIAN = 'ЭЛЕКТРИК'
-
-    profession = models.CharField(
-        max_length=128,
-        choices=ProfessionChoices.choices,
-        null=True
-    )
+    profession = models.ForeignKey(Profession, on_delete=models.CASCADE, null=True)
 
     objects = UserManager()
 

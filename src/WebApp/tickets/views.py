@@ -18,6 +18,18 @@ class TicketRetrieveView(generics.RetrieveAPIView):
     queryset = models.Ticket.objects.all()
 
 
+class TicketStatusesListView(generics.ListAPIView):
+    serializer_class = serializers.TicketStatusSerializer
+    permission_classes = (permissions.IsAuthenticated,)
+    queryset = models.TicketStatus.objects.all()
+
+
+class TaskStatusesListView(generics.ListAPIView):
+    serializer_class = serializers.TaskStatusSerializer
+    permission_classes = (permissions.IsAuthenticated,)
+    queryset = models.TaskStatus.objects.all()
+
+
 class TaskListCreateView(generics.ListCreateAPIView):
     serializer_class = serializers.TaskSerializerPost
     permission_classes = (permissions.IsAuthenticated,)

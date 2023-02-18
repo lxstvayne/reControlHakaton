@@ -3,7 +3,7 @@ version: "3.8"
 
 volumes:
   postgres_data:
-  static_data:
+  media_data:
 
 
 x-database: &database-env
@@ -40,6 +40,8 @@ services:
     volumes:
       - "./nginx/default.conf:/etc/nginx/conf.d/default.conf"
       - "./nginx/nginx.conf:/etc/nginx/nginx.conf"
+      - media_data:/app/media/
+      - ../src/WebApp/static/:/app/static/
     ports:
       - 80:80
       - 443:443
@@ -49,7 +51,7 @@ services:
       context: "../src/WebApp"
     restart: always
     volumes:
-      - static_data:/app/static
+      - media_data:/app/media/
     environment:
       <<: *database-env
       <<: *tz-env

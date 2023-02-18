@@ -27,6 +27,18 @@ class FollowUpSerializerPost(serializers.ModelSerializer):
         fields = ('text', 'task')
 
 
+class TicketStatusSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.TicketStatus
+        fields = ('name',)
+
+
+class TaskStatusSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.TaskStatus
+        fields = ('name',)
+
+
 class TaskSerializerPost(serializers.ModelSerializer):
     class Meta:
         model = models.Task
@@ -45,11 +57,13 @@ class TaskSerializer(serializers.ModelSerializer):
         model = models.Task
         fields = ('id',
                   'query',
+                  'address',
                   'waiting_for',
                   'executor',
                   'status',
-                  'follow_ups')
-        read_only_fields = ('id', 'follow_ups',)
+                  'follow_ups',
+                  'created',)
+        read_only_fields = ('id', 'follow_ups', 'created')
 
 
 class TicketSerializer(serializers.ModelSerializer):

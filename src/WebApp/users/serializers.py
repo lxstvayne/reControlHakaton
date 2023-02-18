@@ -2,7 +2,7 @@ from django.contrib.auth.password_validation import validate_password
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
-from .models import User
+from .models import User, Profession
 
 
 class RegisterSerializer(serializers.ModelSerializer):
@@ -31,6 +31,12 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         return token
 
 
+class UserProfession(serializers.ModelSerializer):
+    class Meta:
+        model = Profession
+        fields = ('name',)
+
+
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -43,3 +49,4 @@ class UserSerializer(serializers.ModelSerializer):
                   'phone',
                   'role',
                   'profession')
+        read_only_fields = ('role', 'profession', 'id')
