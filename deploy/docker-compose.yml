@@ -1,0 +1,57 @@
+version: "3.8"
+
+
+volumes:
+  postgres_data:
+  static_data:
+
+
+x-database: &database-env
+  POSTGRES_DB: "hakaton"
+  POSTGRES_HOST: "postgres"
+  POSTGRES_PORT: "5432"
+  POSTGRES_USER: "postgres"
+  POSTGRES_PASSWORD: "crazyadmin228"
+
+x-tz: &tz-env
+  TZ: Europe/Moscow
+
+services:
+  postgres:
+    image: postgres:latest
+    restart: always
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    ports:
+      - "5444:5432"
+    environment:
+      <<: *database-env
+      <<: *tz-env
+    logging:
+      driver: "json-file"
+      options:
+          max-size: "50m"
+  
+  reverse-proxy:
+    image: nginx:1.23.2-alpine
+    restart: always
+    environment:
+      <<: *tz-env
+    volumes:
+      - "./nginx/default.conf:/etc/nginx/conf.d/default.conf"
+      - "./nginx/nginx.conf:/etc/nginx/nginx.conf"
+    ports:
+      - 80:80
+      - 443:443
+
+  backend:
+    build:
+      context: "../src/WebApp"
+    restart: always
+    volumes:
+      - static_data:/app/static
+    environment:
+      <<: *database-env
+      <<: *tz-env
+    depends_on:
+      - postgres
