@@ -48,8 +48,7 @@ def fill_users():
             email="test1@re-control.com",
             phone="78005553535",
             password=make_password("1234"),
-            firstname="Сергей",
-            lastname="Повелко",
+            fio="Сергей Повелко",
             role=User.RoleChoices.WORKER,
             profession=Profession.objects.get(name="Электрик")
         ),
@@ -57,8 +56,7 @@ def fill_users():
             email="test2@re-control.com",
             phone="68005553535",
             password=make_password("1234"),
-            firstname="Александр",
-            lastname="Левченко",
+            fio="Александр Левченко",
             role=User.RoleChoices.WORKER,
             profession=Profession.objects.get(name="Сантехник")
         ),
@@ -66,8 +64,7 @@ def fill_users():
             email="test3@re-control.com",
             phone="58005553535",
             password=make_password("1234"),
-            firstname="Павел",
-            lastname="Назаров",
+            fio="Павел Назаров",
             role=User.RoleChoices.WORKER,
             profession=Profession.objects.get(name="Клиннер")
         ),
@@ -75,8 +72,7 @@ def fill_users():
             email="test4@re-control.com",
             phone="48005553535",
             password=make_password("1234"),
-            firstname="Дмитрий",
-            lastname="Перышкин",
+            fio="Дмитрий Перышкин",
             role=User.RoleChoices.WORKER,
             profession=Profession.objects.get(name="Инженер")
         ),

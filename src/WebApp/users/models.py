@@ -39,9 +39,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     # Обязательное поле если нужно использовать админку джанго
     is_staff = models.BooleanField(default=False)
 
-    firstname = models.CharField(max_length=255, null=True, blank=False)
-    middlename = models.CharField(max_length=255, null=True, blank=False)
-    lastname = models.CharField(max_length=255, null=True, blank=False)
+    fio = models.CharField(max_length=255, null=True, blank=False)
     photo = models.ImageField(upload_to='photos/', null=True, max_length=255)
     organization = models.CharField(max_length=300, null=True, blank=True)
     city = models.CharField(max_length=300, null=True, blank=True)
